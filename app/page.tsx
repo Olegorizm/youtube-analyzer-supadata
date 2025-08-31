@@ -24,6 +24,7 @@ interface AnalysisResult {
   viewCount: number;
   likeCount: number;
   transcriptLanguages: string[];
+  geminiAnalysis: string;
 }
 
 export default function HomePage() {
@@ -208,6 +209,21 @@ export default function HomePage() {
                       {analysis.description.length > 300 && "..."}
                     </p>
                   </div>
+
+                  {analysis.geminiAnalysis && (
+                    <>
+                      <Separator className="bg-gradient-to-r from-transparent via-border to-transparent" />
+                      <div>
+                        <h4 className="font-semibold mb-3 text-foreground flex items-center gap-2">
+                          <Sparkles className="w-5 h-5 text-primary" />
+                          Анализ от Gemini
+                        </h4>
+                        <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                          {analysis.geminiAnalysis}
+                        </p>
+                      </div>
+                    </>
+                  )}
 
                   {analysis.tags && analysis.tags.length > 0 && (
                     <>
