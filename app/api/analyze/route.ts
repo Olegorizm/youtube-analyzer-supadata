@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
 
     const video = await supadata.youtube.video({
       id: url,
-    });
+      transcript: true,
+    } as any);
 
     if (!video) {
       return NextResponse.json({ error: 'Video not found' }, { status: 404 });
@@ -27,13 +28,13 @@ export async function POST(req: NextRequest) {
 
     const transcript = (video as any).transcript;
     const prompt = `
-      **Analyze the following YouTube video information and provide a structured analysis:**
+      **Analyze the following YouTube video information and provide a structured analysis in Russian:**
 
       *   **Title:** ${video.title}
       *   **Description:** ${video.description}
       *   **Transcript:** ${transcript ? transcript.substring(0, 8000) : 'Transcript not available.'}
 
-      **Please provide the following:**
+      **Please provide the following in Russian:**
 
       1.  **Summary:** A concise summary of the video's content.
       2.  **Key Topics:** A list of the main topics discussed in the video.
